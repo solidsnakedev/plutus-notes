@@ -6,7 +6,7 @@ description: >-
 
 # Asset Name Format in Plutus and cardano-cli
 
-According to the Cardano ledger, an asset must be represented in hex format (some other names are: ByteString, base16), it means if asset name is "abcd" its hex format will be "61626364"&#x20;
+According to the Cardano ledger, an asset must be represented in hex format (some other names are: ByteString, base16), it means if asset name is "abcd" its hex format will be "61626364"
 
 ## Asset Name Format in cardano-cli
 
@@ -23,10 +23,10 @@ echo ${token_name_hex}
 
 ```nix
 [nix-shell:~/plutus-pioneer-program/code/week01]$ cabal repl
-Prelude Week01.EnglishAuction> import Data.Text
-Prelude Data.Text Week01.EnglishAuction> import Ledger.Value 
-Prelude Data.Text Ledger.Value Week01.EnglishAuction> import PlutusTx.Builtins.Internal
-Prelude Data.Text Ledger.Value PlutusTx.Builtins.Internal Week01.EnglishAuction> Ledger.Value.CurrencySymbol (encodeUtf8 $ BuiltinString $ Data.Text.pack "abcd")
+Prelude > import Data.Text
+Prelude > import Ledger.Value 
+Prelude > import PlutusTx.Builtins.Internal
+Prelude > Ledger.Value.CurrencySymbol (encodeUtf8 $ BuiltinString $ Data.Text.pack "abcd")
 61626364
 ```
 
@@ -39,8 +39,8 @@ String <mark style="color:green;">-></mark> Text <mark style="color:green;">-></
 ### 1. Import Data.Text
 
 ```haskell
-Prelude Week01.EnglishAuction> import Data.Text
-Prelude Data.Text Week01.EnglishAuction> :i Data.Text.pack
+Prelude > import Data.Text
+Prelude > :i Data.Text.pack
 pack :: String -> Text  -- Defined in ‘Data.Text’
 ```
 
@@ -52,14 +52,14 @@ Text type is not the default for strings hence we need to convert a String type 
 
 We need the constructor BuiltinString and the function encodeUtf8
 
-```
-Prelude Data.Text Week01.EnglishAuction> import PlutusTx.Builtins.Internal
+```haskell
+Prelude > import PlutusTx.Builtins.Internal
 ```
 
 ### BuiltinString constructor
 
 ```haskell
-Prelude Data.Text PlutusTx.Builtins.Internal Week01.EnglishAuction> :i BuiltinString
+Prelude > :i BuiltinString
 type BuiltinString :: *
 newtype BuiltinString = BuiltinString Text
         -- Defined in ‘PlutusTx.Builtins.Internal’
@@ -76,7 +76,7 @@ We can see that <mark style="color:green;">BuiltinString</mark> is a type constr
 ### encodeUtf8 function
 
 ```haskell
-Prelude Data.Text PlutusTx.Builtins.Internal Week01.EnglishAuction> :i encodeUtf8
+Prelude > :i encodeUtf8
 encodeUtf8 :: BuiltinString -> BuiltinByteString
         -- Defined in ‘PlutusTx.Builtins.Internal’
 ```
@@ -88,8 +88,8 @@ We now encode the <mark style="color:green;">BuiltinString</mark> type to <mark 
 CurrencySymbol is a constructor that takes a <mark style="color:green;">BuiltinByteString</mark> type and returns a <mark style="color:green;">CurrencySymbol</mark> type
 
 ```haskell
-Prelude Data.Text PlutusTx.Builtins.Internal Week01.EnglishAuction> import Ledger.Value
-Prelude Data.Text PlutusTx.Builtins.Internal Ledger.Value Week01.EnglishAuction> :i Ledger.Value.CurrencySymbol 
+Prelude > import Ledger.Value
+Prelude > :i Ledger.Value.CurrencySymbol 
 type CurrencySymbol :: *
 newtype CurrencySymbol
   = CurrencySymbol {unCurrencySymbol :: BuiltinByteString}
@@ -105,6 +105,6 @@ instance Show CurrencySymbol
 ### 4. Compose the function
 
 ```haskell
-Prelude Data.Text Ledger.Value PlutusTx.Builtins.Internal Week01.EnglishAuction> Ledger.Value.CurrencySymbol (encodeUtf8 $ BuiltinString $ Data.Text.pack "abcd")
+Prelude > Ledger.Value.CurrencySymbol (encodeUtf8 $ BuiltinString $ Data.Text.pack "abcd")
 61626364
 ```
