@@ -16,5 +16,4 @@ nix-shell
 ```haskell
 import Data.Text
 
-
 ```
